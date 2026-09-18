@@ -2,17 +2,26 @@
 
 Docker-App für UGREEN-NAS: Übertragungen, Wake & Sync, Backup, Explorer.
 
-Das Image liegt auf GitHub und wird beim Start gezogen. Kein UGREEN-Entwicklerkonto, keine `.upk`.
+YAML und Image liegen auf GitHub. Kein UGREEN-Entwicklerkonto, keine `.upk`.
 
 ## Installieren (SSH auf dem NAS)
 
-Nur **Volume 1** vorhanden? In der YAML die Zeile `- /volume2:/volume2` löschen.
+Nur **Volume 1** vorhanden? Nach dem Download in der YAML die Zeile `- /volume2:/volume2` löschen.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/runlevel1977-del/the-transporter/main/install.sh | sh
+```
+
+Oder Schritt für Schritt:
 
 ```bash
 sudo mkdir -p /volume1/docker/the-transporter
 cd /volume1/docker/the-transporter
 sudo curl -fsSL -o docker-compose.yml \
   https://raw.githubusercontent.com/runlevel1977-del/the-transporter/main/docker-compose.yml
+sudo curl -fL -o /tmp/the-transporter-0.2.0.tar \
+  https://github.com/runlevel1977-del/the-transporter/releases/download/v0.2.0/the-transporter-0.2.0.tar
+sudo docker load -i /tmp/the-transporter-0.2.0.tar
 sudo docker compose up -d
 ```
 

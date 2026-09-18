@@ -8,7 +8,7 @@ name: the-transporter
 
 services:
   the-transporter:
-    image: ghcr.io/runlevel1977-del/the-transporter:0.2.0
+    image: the-transporter:0.2.0
     container_name: the-transporter
     hostname: the-transporter
     restart: unless-stopped
