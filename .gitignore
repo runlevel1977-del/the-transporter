@@ -4,3 +4,5 @@ state.json
 _up.py
 _*.log
 _*.py
+_build-amd64/
+_build-arm64/
