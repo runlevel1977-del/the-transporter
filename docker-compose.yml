@@ -1,0 +1,34 @@
+# The Transporter for UGREEN NAS (UGOS)
+#
+# Image comes from GitHub Container Registry — not from the UPK app.
+# Do not add this as a "Docker project" in the UGOS GUI (host/privileged
+# will fail). Use: sudo docker compose up -d
+
+name: the-transporter
+
+services:
+  the-transporter:
+    image: ghcr.io/runlevel1977-del/the-transporter:0.2.0
+    container_name: the-transporter
+    hostname: the-transporter
+    restart: unless-stopped
+    network_mode: host
+    pid: host
+    privileged: true
+    command: ["transporter_serv", "--port=21011"]
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - NET_BROADCAST
+      - SYS_ADMIN
+    volumes:
+      - /volume1:/volume1
+      - /volume2:/volume2
+      - /home:/home
+      - /mnt/@usb:/mnt/@usb:rw
+      - /volume1/docker/the-transporter:/data
+    environment:
+      - TZ=Europe/Berlin
+      - DATA_DIR=/data
+      - WWW_DIR=/www
+      - UMASK=022

@@ -1,0 +1,6 @@
+*.tar
+*.tar.gz
+state.json
+_up.py
+_*.log
+_*.py

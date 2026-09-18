@@ -1,0 +1,9 @@
+The Transporter — GitHub + GHCR
+================================
+
+Öffentlich:
+  https://github.com/runlevel1977-del/the-transporter
+  Image: ghcr.io/runlevel1977-del/the-transporter:0.2.0
+
+Dieser PC-Ordner ist die Quelle für das GitHub-Repo.
+Lokaler NAS-Stack (Port 21012, eigenes Image) bleibt getrennt.
