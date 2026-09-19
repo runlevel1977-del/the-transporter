@@ -140,6 +140,20 @@ Ordner optional:
     sudo rm -rf /volume1/docker/the-transporter
 
 
+Update in der App
+-----------------
+In der YAML muss stehen:
+
+    - /var/run/docker.sock:/var/run/docker.sock
+
+Danach unten links „Update“: prüft GitHub, bei neuer Version laden und
+Container neu starten. Ohne diese Zeile nur Hinweis, kein Selbst-Update.
+
+Falls die YAML schon existiert, Zeile ergänzen und:
+
+    sudo docker compose -f /volume1/docker/the-transporter/docker-compose.yml up -d
+
+
 Fehler
 ------
 exec format error / Restarting

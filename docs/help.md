@@ -20,6 +20,7 @@ Browser: `http://NAS-IP:21011` (oder `:21012`, wenn die Transporter-UPK den Port
 5. **Backup** — Archive (`.tar.gz`) am Ziel ablegen. Zeitplan wie bei Wake. Optional Passwortschutz.
 6. **Zeitpläne** — Jobs ein- und ausschalten.
 7. **Protokolle** — Start, Ende und übertragene Menge.
+8. **Update** — unten links. Prüft GitHub. Wenn eine neuere Version da ist, erscheint ein Hinweis; **Aktualisieren** lädt das Image und startet den Container neu. Dafür muss in der YAML `/var/run/docker.sock` gemountet sein.
 
 ## Hinweise
 

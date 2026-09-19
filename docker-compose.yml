@@ -27,6 +27,7 @@ services:
       - /home:/home
       - /mnt/@usb:/mnt/@usb:rw
       - /volume1/docker/the-transporter:/data
+      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - TZ=Europe/Berlin
       - DATA_DIR=/data
