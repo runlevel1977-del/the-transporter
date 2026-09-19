@@ -38,11 +38,11 @@ Image (eine Zeile, passend zur CPU):
 ```bash
 # AMD64
 sudo curl -fL -o /tmp/the-transporter.tar \
-  https://github.com/runlevel1977-del/the-transporter/releases/download/v0.2.0/the-transporter-0.2.0-amd64.tar
+  https://github.com/runlevel1977-del/the-transporter/releases/download/v0.2.4/the-transporter-0.2.4-amd64.tar
 
 # ARM64
 sudo curl -fL -o /tmp/the-transporter.tar \
-  https://github.com/runlevel1977-del/the-transporter/releases/download/v0.2.0/the-transporter-0.2.0-arm64.tar
+  https://github.com/runlevel1977-del/the-transporter/releases/download/v0.2.4/the-transporter-0.2.4-arm64.tar
 ```
 
 ```bash

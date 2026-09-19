@@ -2,7 +2,7 @@
 # The Transporter — Image + Compose von GitHub, dann starten.
 set -e
 DIR=/volume1/docker/the-transporter
-VER=0.2.0
+VER=0.2.4
 BASE=https://github.com/runlevel1977-del/the-transporter
 RAW=https://raw.githubusercontent.com/runlevel1977-del/the-transporter/main
 
@@ -31,5 +31,7 @@ sudo sh "$DIR/patch-volumes.sh" "$DIR/docker-compose.yml"
 sudo curl -fL -o /tmp/the-transporter-${VER}.tar "$BASE/releases/download/v${VER}/the-transporter-${VER}-${cpu}.tar"
 sudo docker load -i /tmp/the-transporter-${VER}.tar
 sudo rm -f /tmp/the-transporter-${VER}.tar
+sudo sed -i "s|image: the-transporter:.*|image: the-transporter:${VER}|" "$DIR/docker-compose.yml"
+sudo sed -i '/docker.sock/d' "$DIR/docker-compose.yml"
 sudo docker compose -f "$DIR/docker-compose.yml" up -d
 echo "The Transporter ($cpu): http://NAS-IP:21011"

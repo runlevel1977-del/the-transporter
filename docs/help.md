@@ -20,11 +20,13 @@ Browser: `http://NAS-IP:21011` (oder `:21012`, wenn die Transporter-UPK den Port
 5. **Backup** — Archive (`.tar.gz`) am Ziel ablegen. Zeitplan wie bei Wake. Optional Passwortschutz.
 6. **Zeitpläne** — Jobs ein- und ausschalten.
 7. **Protokolle** — Start, Ende und übertragene Menge.
-8. **Update** — unten links. Prüft GitHub. Wenn eine neuere Version da ist, erscheint ein Hinweis; **Aktualisieren** lädt das Image und startet den Container neu. Dafür muss in der YAML `/var/run/docker.sock` gemountet sein.
+8. **Update** — unten links. Prüft GitHub und zeigt, ob eine neuere Version da ist. Installieren bleibt per SSH (`docker load`), kein Selbst-Update über den Docker-Socket.
 
 ## Hinweise
 
 - Host-Netz und privileged sind nötig (Volumes, Wake-on-LAN).
 - Bei der Installation bindet `patch-volumes.sh` alle gemounteten NAS-Volumes (`/volume1` … `/volume8`) ein. Extra-Zeilen in der YAML sind nicht nötig.
 - Jobs und Passwörter liegen in `state.json` im Docker-Datenordner.
+- Beim ersten Öffnen ein Passwort setzen. Danach nur mit diesem Passwort.
+- Ordner mit `@` (z. B. `@docker`, `@eadir`) sind sichtbar, aber nur lesbar. Overlay/Proc in `@docker` wird nicht durchwandert.
 - Läuft die Transporter-UPK parallel mit denselben Zeitplänen, starten Jobs doppelt.

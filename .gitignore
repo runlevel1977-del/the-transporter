@@ -6,3 +6,5 @@ _*.log
 _*.py
 _build-amd64/
 _build-arm64/
+build-0.2.*/
+images/

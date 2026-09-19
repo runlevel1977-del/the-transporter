@@ -12,7 +12,7 @@ name: the-transporter
 
 services:
   the-transporter:
-    image: the-transporter:0.2.0
+    image: the-transporter:0.2.4
     container_name: the-transporter
     hostname: the-transporter
     restart: unless-stopped
@@ -31,7 +31,6 @@ services:
       - /home:/home
       - /mnt/@usb:/mnt/@usb:rw
       - /volume1/docker/the-transporter:/data
-      - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - TZ=Europe/Berlin
       - DATA_DIR=/data

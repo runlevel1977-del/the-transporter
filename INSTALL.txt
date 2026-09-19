@@ -5,9 +5,9 @@ Docker-App für UGREEN-NAS. Kein UGREEN-Entwicklerkonto, keine .upk.
 
 Downloads:
   https://github.com/runlevel1977-del/the-transporter
-  Release v0.2.0:
-    AMD64  the-transporter-0.2.0-amd64.tar
-    ARM64  the-transporter-0.2.0-arm64.tar
+  Release v0.2.4:
+    AMD64  the-transporter-0.2.4-amd64.tar
+    ARM64  the-transporter-0.2.4-arm64.tar
 
 NICHT über die UGOS-Docker-Oberfläche "Projekt anlegen".
 Host-Netz + privileged werden dort abgelehnt. Start nur per SSH + docker compose.
@@ -73,17 +73,18 @@ Prüfen:
 -------------------------------------------------------------
 AMD64:
 
-    sudo curl -fL -o /tmp/the-transporter.tar https://github.com/runlevel1977-del/the-transporter/releases/download/v0.2.0/the-transporter-0.2.0-amd64.tar
+    sudo curl -fL -o /tmp/the-transporter.tar https://github.com/runlevel1977-del/the-transporter/releases/download/v0.2.4/the-transporter-0.2.4-amd64.tar
 
 ARM64:
 
-    sudo curl -fL -o /tmp/the-transporter.tar https://github.com/runlevel1977-del/the-transporter/releases/download/v0.2.0/the-transporter-0.2.0-arm64.tar
+    sudo curl -fL -o /tmp/the-transporter.tar https://github.com/runlevel1977-del/the-transporter/releases/download/v0.2.4/the-transporter-0.2.4-arm64.tar
 
 Dann:
 
     ls -lh /tmp/the-transporter.tar
     sudo docker load -i /tmp/the-transporter.tar
-    sudo docker image inspect the-transporter:0.2.0 --format '{{.Architecture}}'
+    sudo rm -f /tmp/the-transporter.tar
+    sudo docker image inspect the-transporter:0.2.4 --format '{{.Architecture}}'
 
 inspect muss zu Schritt 2 passen: amd64 oder arm64.
 
@@ -106,6 +107,8 @@ Beispiel:
 
     http://192.168.2.168:21011
 
+Beim ersten Öffnen ein Passwort setzen.
+
 
 Kurzform (alles nach dem SSH-Login, AMD64, Port 21011)
 ------------------------------------------------------
@@ -114,14 +117,15 @@ Kurzform (alles nach dem SSH-Login, AMD64, Port 21011)
     sudo curl -fL -o docker-compose.yml https://raw.githubusercontent.com/runlevel1977-del/the-transporter/main/docker-compose.yml
     sudo curl -fsSL -o patch-volumes.sh https://raw.githubusercontent.com/runlevel1977-del/the-transporter/main/patch-volumes.sh
     sudo sh patch-volumes.sh docker-compose.yml
-    sudo curl -fL -o /tmp/the-transporter.tar https://github.com/runlevel1977-del/the-transporter/releases/download/v0.2.0/the-transporter-0.2.0-amd64.tar
+    sudo curl -fL -o /tmp/the-transporter.tar https://github.com/runlevel1977-del/the-transporter/releases/download/v0.2.4/the-transporter-0.2.4-amd64.tar
     sudo docker load -i /tmp/the-transporter.tar
+    sudo rm -f /tmp/the-transporter.tar
     sudo docker compose -f /volume1/docker/the-transporter/docker-compose.yml up -d
 
 
 Kurzform ARM64
 --------------
-Wie oben, nur die curl-URL auf the-transporter-0.2.0-arm64.tar ändern.
+Wie oben, nur die curl-URL auf the-transporter-0.2.4-arm64.tar ändern.
 
 
 Jobs von der Transporter-UPK übernehmen (optional)
@@ -138,10 +142,22 @@ Danach Seite neu laden. Laufen UPK und The Transporter parallel mit denselben
 Zeitplänen, starten Jobs doppelt — dann in einer der beiden die Jobs aus.
 
 
+Von 0.2.0 auf 0.2.4 (YAML existiert schon)
+-----------------------------------------
+Image laden wie in Schritt 7, dann:
+
+    cd /volume1/docker/the-transporter
+    sudo sed -i 's/the-transporter:0.2.[0-9][0-9]*/the-transporter:0.2.4/' docker-compose.yml
+    sudo sed -i '/docker.sock/d' docker-compose.yml
+    sudo docker compose -f /volume1/docker/the-transporter/docker-compose.yml up -d --force-recreate
+
+Beim ersten Öffnen ein Passwort setzen.
+
+
 Stoppen / deinstallieren
 ------------------------
     sudo docker compose -f /volume1/docker/the-transporter/docker-compose.yml down
-    sudo docker rmi the-transporter:0.2.0
+    sudo docker rmi the-transporter:0.2.4
 
 Ordner optional:
 
@@ -150,16 +166,8 @@ Ordner optional:
 
 Update in der App
 -----------------
-In der YAML muss stehen:
-
-    - /var/run/docker.sock:/var/run/docker.sock
-
-Danach unten links „Update“: prüft GitHub, bei neuer Version laden und
-Container neu starten. Ohne diese Zeile nur Hinweis, kein Selbst-Update.
-
-Falls die YAML schon existiert, Zeile ergänzen und:
-
-    sudo docker compose -f /volume1/docker/the-transporter/docker-compose.yml up -d
+Unten links „Update“: prüft GitHub und sagt, ob eine neuere Version da ist.
+Installieren bleibt per SSH (docker load), kein Docker-Socket, kein Selbst-Update.
 
 
 Volumes nachträglich (YAML existiert schon)
