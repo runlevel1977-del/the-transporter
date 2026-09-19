@@ -28,6 +28,9 @@ sudo mkdir -p /volume1/docker/the-transporter
 cd /volume1/docker/the-transporter
 sudo curl -fL -o docker-compose.yml \
   https://raw.githubusercontent.com/runlevel1977-del/the-transporter/main/docker-compose.yml
+sudo curl -fsSL -o patch-volumes.sh \
+  https://raw.githubusercontent.com/runlevel1977-del/the-transporter/main/patch-volumes.sh
+sudo sh patch-volumes.sh docker-compose.yml
 ```
 
 Image (eine Zeile, passend zur CPU):
@@ -49,13 +52,13 @@ sudo docker compose -f /volume1/docker/the-transporter/docker-compose.yml up -d
 
 Browser: `http://NAS-IP:21011`
 
-Nur Volume 1: in der YAML die Zeile `- /volume2:/volume2` löschen.
+Volumes: `install.sh` hängt alle gemounteten `/volume1` … `/volume8` ein. Wer die YAML nur per curl lädt: danach `patch-volumes.sh` ausführen.
 
 Läuft die Transporter-UPK schon auf 21011: in der YAML `21011` durch `21012` ersetzen.
 
 Die UGOS-Docker-Oberfläche („Projekt erstellen“) lehnt Host-Netz und privileged ab. Deshalb per Compose starten, nicht über die GUI.
 
-Oder automatisch (erkennt AMD/ARM selbst):
+Oder automatisch (erkennt CPU und Volumes selbst):
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/runlevel1977-del/the-transporter/main/install.sh | sh

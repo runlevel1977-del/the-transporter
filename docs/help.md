@@ -25,5 +25,6 @@ Browser: `http://NAS-IP:21011` (oder `:21012`, wenn die Transporter-UPK den Port
 ## Hinweise
 
 - Host-Netz und privileged sind nötig (Volumes, Wake-on-LAN).
+- Bei der Installation bindet `patch-volumes.sh` alle gemounteten NAS-Volumes (`/volume1` … `/volume8`) ein. Extra-Zeilen in der YAML sind nicht nötig.
 - Jobs und Passwörter liegen in `state.json` im Docker-Datenordner.
 - Läuft die Transporter-UPK parallel mit denselben Zeitplänen, starten Jobs doppelt.

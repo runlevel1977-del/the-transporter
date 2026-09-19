@@ -1,8 +1,12 @@
 # The Transporter for UGREEN NAS (UGOS)
 #
-# Image comes from GitHub Container Registry — not from the UPK app.
+# Image comes from GitHub Release tars (docker load) — not from the UPK app.
 # Do not add this as a "Docker project" in the UGOS GUI (host/privileged
 # will fail). Use: sudo docker compose up -d
+#
+# /volume1 and /volume2 are the fallback. install.sh / patch-volumes.sh
+# replace those binds with whatever /volume1 … /volume8 is actually mounted
+# on the NAS (missing volumes are not created).
 
 name: the-transporter
 

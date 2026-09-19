@@ -4,6 +4,7 @@ set -e
 DIR=/volume1/docker/the-transporter
 VER=0.2.0
 BASE=https://github.com/runlevel1977-del/the-transporter
+RAW=https://raw.githubusercontent.com/runlevel1977-del/the-transporter/main
 
 arch=$(uname -m)
 case "$arch" in
@@ -17,7 +18,16 @@ esac
 
 sudo mkdir -p "$DIR"
 cd "$DIR"
-sudo curl -fsSL -o docker-compose.yml "$BASE/raw/main/docker-compose.yml"
+
+if [ ! -f "$DIR/docker-compose.yml" ]; then
+  sudo curl -fsSL -o "$DIR/docker-compose.yml" "$RAW/docker-compose.yml"
+else
+  echo "YAML vorhanden — Port und übrige Anpassungen bleiben."
+fi
+
+sudo curl -fsSL -o "$DIR/patch-volumes.sh" "$RAW/patch-volumes.sh"
+sudo sh "$DIR/patch-volumes.sh" "$DIR/docker-compose.yml"
+
 sudo curl -fL -o /tmp/the-transporter-${VER}.tar "$BASE/releases/download/v${VER}/the-transporter-${VER}-${cpu}.tar"
 sudo docker load -i /tmp/the-transporter-${VER}.tar
 sudo rm -f /tmp/the-transporter-${VER}.tar

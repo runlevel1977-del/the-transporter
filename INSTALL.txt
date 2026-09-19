@@ -45,9 +45,15 @@ Muss stehen: /volume1/docker/the-transporter
     sudo curl -fL -o docker-compose.yml https://raw.githubusercontent.com/runlevel1977-del/the-transporter/main/docker-compose.yml
 
 
-5) Nur Volume 1? Dann diese Zeile aus der YAML löschen
-------------------------------------------------------
-    sudo sed -i '/\/volume2:\/volume2/d' docker-compose.yml
+5) Volumes einbinden (automatisch)
+----------------------------------
+Prüft, welche /volume1 … /volume8 auf dem NAS wirklich gemountet sind,
+und trägt nur die in die YAML ein. Keine leeren Ordner, kein Handarbeit.
+
+    sudo curl -fsSL -o patch-volumes.sh https://raw.githubusercontent.com/runlevel1977-del/the-transporter/main/patch-volumes.sh
+    sudo sh patch-volumes.sh docker-compose.yml
+
+Ausgabe z.B. „Volumes eingebunden: /volume1 /volume2 /volume3“.
 
 
 6) Port
@@ -106,6 +112,8 @@ Kurzform (alles nach dem SSH-Login, AMD64, Port 21011)
     sudo mkdir -p /volume1/docker/the-transporter
     cd /volume1/docker/the-transporter
     sudo curl -fL -o docker-compose.yml https://raw.githubusercontent.com/runlevel1977-del/the-transporter/main/docker-compose.yml
+    sudo curl -fsSL -o patch-volumes.sh https://raw.githubusercontent.com/runlevel1977-del/the-transporter/main/patch-volumes.sh
+    sudo sh patch-volumes.sh docker-compose.yml
     sudo curl -fL -o /tmp/the-transporter.tar https://github.com/runlevel1977-del/the-transporter/releases/download/v0.2.0/the-transporter-0.2.0-amd64.tar
     sudo docker load -i /tmp/the-transporter.tar
     sudo docker compose -f /volume1/docker/the-transporter/docker-compose.yml up -d
@@ -152,6 +160,16 @@ Container neu starten. Ohne diese Zeile nur Hinweis, kein Selbst-Update.
 Falls die YAML schon existiert, Zeile ergänzen und:
 
     sudo docker compose -f /volume1/docker/the-transporter/docker-compose.yml up -d
+
+
+Volumes nachträglich (YAML existiert schon)
+------------------------------------------
+    cd /volume1/docker/the-transporter
+    sudo curl -fsSL -o patch-volumes.sh https://raw.githubusercontent.com/runlevel1977-del/the-transporter/main/patch-volumes.sh
+    sudo sh patch-volumes.sh docker-compose.yml
+    sudo docker compose -f /volume1/docker/the-transporter/docker-compose.yml up -d
+
+Port und übrige YAML-Zeilen bleiben. Nur die /volumeN-Zeilen werden neu gesetzt.
 
 
 Fehler
