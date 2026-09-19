@@ -4,7 +4,7 @@ Docker-App für UGREEN-NAS: Übertragungen, Wake & Sync, Backup, Explorer.
 
 YAML und Image liegen auf GitHub. Kein UGREEN-Entwicklerkonto, keine `.upk`.
 
-**Anleitung zum Weitergeben:** [INSTALL.txt](INSTALL.txt)
+**Anleitung zum Weitergeben:** [INSTALL.txt](INSTALL.txt) · [Hilfe](docs/help.md) · [Datenschutz](docs/privacy.md)
 
 ## Installieren
 
